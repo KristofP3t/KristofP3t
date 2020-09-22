@@ -1,9 +1,7 @@
+package de.kristofpetersen.statistikAuswertung;
 
-public class HalloWelt {
+public class pflegeStatistikAuswertung {
 
-	public static void main(String[] args) {
-		// TODO Automatisch generierter Methodenstub
 
-	}
 
 }
