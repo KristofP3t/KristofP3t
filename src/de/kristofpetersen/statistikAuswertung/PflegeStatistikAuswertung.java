@@ -124,6 +124,8 @@ public class PflegeStatistikAuswertung extends JFrame{
 		int anzahlAussortiert = 0;
 		int anzahlVollUndTeilAutomatisiert = 0;
 		int anzahlVollautomatisiert = 0;
+		int anzahlAblehnungen = 0;
+		int anzahlBewilligungen = 0;
 		int anzahlTeilautomatisiert = 0;
 		int anzahlUnplausiblePunktwerte = 0;
 		int anzahlErledigungsart = 0;
@@ -134,9 +136,9 @@ public class PflegeStatistikAuswertung extends JFrame{
 		int anzahlVorkasseVorhanden = 0;
 		int anzahlKeinGueltigesVvh = 0;
 		int anzahlSonstige = 0;
-		double anzahlGesamtquote = 0;
-		double anzahlVollquote = 0;
-		double anzahlTeilquote = 0;
+		double wertGesamtquote = 0;
+		double wertVollquote = 0;
+		double wertTeilquote = 0;
 		
 		try {
 			BufferedReader reader = new BufferedReader(new FileReader(datei));
@@ -171,6 +173,19 @@ public class PflegeStatistikAuswertung extends JFrame{
 						anzahlKeinGueltigesVvh++;
 					}
 				}
+				if(!aktuelleLine[40].isEmpty()) {
+					//System.out.println(aktuelleLine[40]);
+					anzahlBewilligungen++;
+					anzahlVollautomatisiert++;
+					}
+				if(aktuelleLine[43].equals("9")) {
+					anzahlTeilautomatisiert++;
+				}
+				if(!aktuelleLine[45].isEmpty()) {
+					//System.out.println(aktuelleLine[45]);
+					anzahlAblehnungen++;
+					anzahlVollautomatisiert++;
+				}
 					
 				
 				lineString = reader.readLine();
@@ -180,7 +195,14 @@ public class PflegeStatistikAuswertung extends JFrame{
 			e.printStackTrace();
 			}
 		einstufungsGutachten.setText(einstufungsGutachten.getText() + gesamtGutachten);
+		anzahlAussortiert = gesamtGutachten - anzahlVollautomatisiert - anzahlTeilautomatisiert;
 		aussortiert.setText(aussortiert.getText() + anzahlAussortiert);
+		anzahlVollUndTeilAutomatisiert = anzahlVollautomatisiert + anzahlTeilautomatisiert;
+		vollUndTeilautomatisiert.setText(vollUndTeilautomatisiert.getText() + anzahlVollUndTeilAutomatisiert);
+		vollautomatisiert.setText(vollautomatisiert.getText() + anzahlVollautomatisiert);
+		teilautomatisiert.setText(teilautomatisiert.getText() + anzahlTeilautomatisiert);		
+		
+		
 		unplausiblePunktwerte.setText(unplausiblePunktwerte.getText() + anzahlUnplausiblePunktwerte);
 		erledigungsart.setText(erledigungsart.getText() + anzahlErledigungsart);
 		keineZugelasseneKombi.setText(keineZugelasseneKombi.getText() + anzahlKeineZugelasseneKombi);
@@ -189,7 +211,24 @@ public class PflegeStatistikAuswertung extends JFrame{
 		eilantragVorhanden.setText(eilantragVorhanden.getText() + anzahlEilantragVorhanden);
 		vorkasseVorhanden.setText(vorkasseVorhanden.getText() + anzahlVorkasseVorhanden);
 		keinGueltigesVvh.setText(keinGueltigesVvh.getText() + anzahlKeinGueltigesVvh);
-		//sonstige
+		anzahlSonstige = anzahlAussortiert
+				-anzahlUnplausiblePunktwerte
+				-anzahlErledigungsart
+				-anzahlKeineZugelasseneKombi
+				-anzahlBefristet
+				-anzahlUnterbrechungVorhanden
+				-anzahlEilantragVorhanden
+				-anzahlVorkasseVorhanden
+				-anzahlKeinGueltigesVvh;
+		sonstige.setText(sonstige.getText() + anzahlSonstige);
+		wertGesamtquote = anzahlVollUndTeilAutomatisiert * 1.0 / gesamtGutachten;
+		gesamtquote.setText(gesamtquote.getText() + wertGesamtquote);
+		wertVollquote =  anzahlVollautomatisiert * 1.0 / anzahlVollUndTeilAutomatisiert;
+		quoteVollautomatisiert.setText(quoteVollautomatisiert.getText() + wertVollquote);
+		wertTeilquote = anzahlTeilautomatisiert * 1.0 / anzahlVollUndTeilAutomatisiert;
+		quoteTeilautomatisiert.setText(quoteTeilautomatisiert.getText() + wertTeilquote);
+		
+		
 		}
 
 	}
