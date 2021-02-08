@@ -7,5 +7,7 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/JavaFX15"/>
+	<classpathentry kind="lib" path="/Users/kristofpetersen/Library/Mobile Documents/com~apple~CloudDocs/Java/Java an der ILS/Java17D/java17d_software/javax.activation-1.2.0.jar"/>
+	<classpathentry kind="lib" path="/Users/kristofpetersen/Library/Mobile Documents/com~apple~CloudDocs/Java/Java an der ILS/Java17D/java17d_software/javamail/javax.mail.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
